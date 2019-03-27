@@ -1,0 +1,42 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD com.example.Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zuxia.mapper.UserMapper">
+	<resultMap id="result" type="com.zuxia.entity.User">
+		<result property="name" column="name" />
+		<result property="password" column="password" />
+		<result property="number" column="number"/>
+ 
+	</resultMap>
+ 
+	<select id="ListUser" resultMap="result">
+		SELECT * FROM User
+	</select>
+ 
+	<select id="findUserByName" resultMap="result">
+		SELECT * FROM User where name=#{name}
+	</select>
+ 
+	<insert id="insertUser" parameterType="com.zuxia.entity.User"
+		keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO User
+		(
+		id,name,password,number
+		)
+		VALUES (
+		#{id},
+		#{name, jdbcType=VARCHAR},
+		#{password, jdbcType=VARCHAR},
+		#{number}
+		)
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from User where id=#{id}
+	</delete>
+	
+	<update id="Update" parameterType="com.zuxia.entity.User">
+	update User set User.name=#{name},User.password=#{password},User.number=#{number} where User.id=#{id}
+	</update>
+</mapper>
